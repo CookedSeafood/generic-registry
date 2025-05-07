@@ -1,0 +1,39 @@
+{
+    "schemaVersion": 1,
+    "id": "generic-registry",
+    "version": "${version}",
+    "name": "Generic Registry",
+    "description": "An object-storing type-based modify-on-fly single-end-origin registry.",
+    "authors": [
+        {
+            "name": "CookedSeafood",
+            "contact": {
+                "homepage": "https://github.com/CookedSeafood"
+            }
+        }
+    ],
+    "contact": {
+        "homepage": "https://modrinth.com/mod/generic-registry",
+        "sources": "https://github.com/CookedSeafood/generic-registry"
+    },
+    "license": "GNU-GPL-3.0",
+    "icon": "assets/generic-registry/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "net.cookedseafood.genericregistry.GenericRegistry"
+        ]
+    },
+    "mixins": [
+        "generic-registry.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.16.14",
+        "minecraft": "~1.21.4",
+        "java": ">=21",
+        "fabric-api": "*"
+    },
+    "suggests": {
+        "another-mod": "*"
+    }
+}
