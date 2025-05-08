@@ -5,7 +5,7 @@ An object-storing type-based modify-on-fly single-end-origin registry.
 ## Feature
 
 - Store any object
-- Add, modify, or remove on fly
+- Add or remove at any time
 
 ## Registry
 
