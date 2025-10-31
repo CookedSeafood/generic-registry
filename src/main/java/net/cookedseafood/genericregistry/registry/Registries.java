@@ -9,12 +9,22 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A Registries holds a map for {@linkplain Registry registry}s with different type of object.
+ * A registries holds the mapping between the class type of registered object and
+ * {@linkplain Registry registry}.
  * 
- * <p>The main way to interact with the registries is through {@link #register(Identifier, Object)}
- * and {@link #get(Class, Identifier)}.</p>
- * 
- * @see Registry
+ * <h4>Register to Registry</h4>
+ * <ul>
+ * <li>{@link #register(Identifier, Object)}</li>
+ * </ul>
+ * <h4>Get from Registry</h4>
+ * <ul>
+ * <li>{@link #get(Class, Identifier)}</li>
+ * </ul>
+ * <h4>Unregister from Registry</h4>
+ * <ul>
+ * <li>{@link #unregister(Class, Identifier)}</li>
+ * <li>{@link #unregister(Identifier, Object)}</li>
+ * </ul>
  */
 public abstract class Registries {
     private static final Map<Class<?>, Registry<?>> registries;
@@ -24,13 +34,13 @@ public abstract class Registries {
      * 
      * @param <T> the type of the object to register
      * @param id the key to map with
-     * @param o the object to register
+     * @param object the object to register
      * @return the object
      */
     @SuppressWarnings("unchecked")
-    public static <T> T register(Identifier id, T o) {
-        ((Registry<T>)getOrPut(o.getClass())).put(id, o);
-        return o;
+    public static <T> T register(Identifier id, T object) {
+        getOrPut((Class<T>)object.getClass()).put(id, object);
+        return object;
     }
 
     /**
@@ -38,13 +48,63 @@ public abstract class Registries {
      * 
      * @param <T> the type of the object to get
      * @param type the type of the object to get
-     * @param id the key to map with
+     * @param id the key mapped with
      * @return the object
      */
     @Nullable
     public static <T> T get(Class<T> type, Identifier id) {
         Registry<T> registry = get(type);
         return registry == null ? null : registry.get(id);
+    }
+
+    /**
+     * Unregister an object from registry.
+     * 
+     * @param <T> the type of the object to unregister
+     * @param type the type of the object to unregister
+     * @param id the key mapped with
+     * @return the object
+     */
+    @Nullable
+    public static <T> T unregister(Class<T> type, Identifier id) {
+        Registry<T> registry;
+        T object = (registry = get(type)) == null ? null : registry.remove(id);
+        removeIfEmpty(type);
+        return object;
+    }
+
+    /**
+     * Unregister an object from registry.
+     * 
+     * @param <T> the type of the object to unregister
+     * @param id the key mapped with
+     * @param object the object to unregister
+     * @return true if the object was unregistered
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> boolean unregister(Identifier id, T object) {
+        Class<T> type = (Class<T>)object.getClass();
+        Registry<T> registry;
+        boolean b = (registry = get(type)) == null ? false : registry.remove(id, object);
+        removeIfEmpty(type);
+        return b;
+    }
+
+    public static boolean isRegistered(Class<?> type, Identifier id) {
+        Registry<?> registry = get(type);
+        return registry != null && registry.containsKey(id);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> boolean isRegistered(Identifier id, T object) {
+        Registry<T> registry = get((Class<T>)object.getClass()); T o;
+        return registry != null && ((o = registry.get(id)) == object || object != null && object.equals(o));
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> boolean isRegistered(T object) {
+        Registry<T> registry = get((Class<T>)object.getClass());
+        return registry != null && registry.containsValue(object);
     }
 
     public static Map<Class<?>, Registry<?>> getRegistries() {
@@ -108,9 +168,16 @@ public abstract class Registries {
         registries.forEach(Registries.registries::put);
     }
 
+    @Nullable
     @SuppressWarnings("unchecked")
     public static <T> Registry<T> remove(Class<T> type) {
         return (Registry<T>)registries.remove(type);
+    }
+
+    @Nullable
+    public static <T> Registry<T> removeIfEmpty(Class<T> type) {
+        Registry<T> registry = get(type);
+        return registry != null && registry.isEmpty() ? remove(type) : null;
     }
 
     public static <T> boolean remove(Class<T> type, Registry<T> registry) {

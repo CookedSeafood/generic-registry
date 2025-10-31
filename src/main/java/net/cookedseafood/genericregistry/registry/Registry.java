@@ -9,12 +9,14 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A registry holds a map for a single type of object.
+ * A registry holds the mapping between the string ID and the registered object.
  * 
  * <p>This should <i>NOT</i> be instanced manualy.</p>
  * 
  * @see Registries#register(Identifier, Object)
  * @see Registries#get(Class, Identifier)
+ * @see Registries#unregister(Class, Identifier)
+ * @see Registries#unregister(Identifier, Object)
  */
 public class Registry<T> {
     private final Map<Identifier, T> registry;
@@ -87,6 +89,7 @@ public class Registry<T> {
         this.registry.putAll(registry);
     }
 
+    @Nullable
     public T remove(Identifier id) {
         return this.registry.remove(id);
     }

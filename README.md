@@ -9,14 +9,21 @@ An object-storing type-based modify-on-fly single-end-origin registry.
 
 ## Registry
 
-### Register into Registry
+### Register to Registry
 
 ```java
-Registries.register(Identifier id, Object o);
+Registries.register(Identifier id, T object);
 ```
 
 ### Get from Registry
 
 ```java
 Registries.get(Class<T> type, Identifier id);
+```
+
+### Unregister from Registry
+
+```java
+Registries.unregister(Class<T> type, Identifier id);
+Registries.unregister(Identifier id, T object);
 ```
