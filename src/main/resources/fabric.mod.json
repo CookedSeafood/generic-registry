@@ -14,26 +14,32 @@
     ],
     "contact": {
         "homepage": "https://modrinth.com/mod/generic-registry",
-        "sources": "https://github.com/CookedSeafood/generic-registry"
+        "sources": "https://github.com/CookedSeafood/generic-registry",
+        "issues": "https://github.com/CookedSeafood/generic-registry/issues"
     },
     "license": "GNU-GPL-3.0",
     "icon": "assets/generic-registry/icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [
-            "net.cookedseafood.genericregistry.GenericRegistry"
+            "net.hederamc.gr.GenericRegistry"
         ]
     },
     "mixins": [
         "generic-registry.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=0.17.3",
+        "fabricloader": ">=0.18.3",
         "minecraft": ">=1.7.2",
         "java": ">=21",
         "fabric-api": "*"
     },
-    "suggests": {
-        "another-mod": "*"
+    "suggests": {},
+    "custom": {
+        "modmenu": {
+            "badges": [
+                "library"
+            ]
+        }
     }
 }

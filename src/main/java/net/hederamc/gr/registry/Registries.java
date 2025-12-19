@@ -1,4 +1,4 @@
-package net.cookedseafood.genericregistry.registry;
+package net.hederamc.gr.registry;
 
 import java.util.Collection;
 import java.util.HashMap;
