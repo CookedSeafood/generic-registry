@@ -1,4 +1,4 @@
-package net.hederamc.gr;
+package net.hederamc.util;
 
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -12,9 +12,9 @@ public class GenericRegistry implements ModInitializer {
     // That way, it's clear which mod wrote info, warnings, and errors.
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static final byte VERSION_MAJOR = 2;
+    public static final byte VERSION_MAJOR = 3;
     public static final byte VERSION_MINOR = 0;
-    public static final byte VERSION_PATCH = 1;
+    public static final byte VERSION_PATCH = 0;
 
     @Override
     public void onInitialize() {

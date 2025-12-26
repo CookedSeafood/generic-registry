@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "net.hederamc.gr.mixin",
+    "package": "net.hederamc.util.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [],
     "injectors": {

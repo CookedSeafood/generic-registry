@@ -24,6 +24,7 @@ Registries.get(Class<T> type, Identifier id);
 ### Unregister from Registry
 
 ```java
+Registries.unregister(Class<T> type);
 Registries.unregister(Class<T> type, Identifier id);
 Registries.unregister(Identifier id, T object);
 ```

@@ -22,7 +22,7 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "net.hederamc.gr.GenericRegistry"
+            "net.hederamc.util.GenericRegistry"
         ]
     },
     "mixins": [
